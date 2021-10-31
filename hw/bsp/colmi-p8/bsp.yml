@@ -1,0 +1,101 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#  http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#
+
+bsp.arch: cortex_m4
+bsp.compiler: compiler/arm-none-eabi-m4
+bsp.linkerscript:
+    - "hw/bsp/colmi-p8/colmi-p8.ld"
+    - "@apache-mynewt-core/hw/mcu/nordic/nrf52xxx/nrf52.ld"
+bsp.linkerscript.BOOT_LOADER.OVERWRITE:
+    - "hw/bsp/colmi-p8/boot-colmi-p8.ld"
+    - "@apache-mynewt-core/hw/mcu/nordic/nrf52xxx/nrf52.ld"
+bsp.part2linkerscript: "hw/bsp/colmi-p8/split-colmi-p8.ld"
+bsp.downloadscript: "hw/bsp/colmi-p8/colmi-p8_download.sh"
+bsp.debugscript: "hw/bsp/colmi-p8/colmi-p8_debug.sh"
+
+# This flash layout is compatible with other community firmwares. It is based on: https://lupyuen.github.io/pinetime-rust-mynewt/articles/mcuboot
+#TODO: The image size could be increased by 12kB. This space is already reserved, but not yet used. This is to be compatible with other firmwares that use the image size of 464kB.
+#bsp.flash_map:
+#    areas:
+#        # System areas.
+#        FLASH_AREA_BOOTLOADER:
+#            device: 0
+#            offset: 0x00000000
+#            size: 24kB
+#        FLASH_AREA_IMAGE_0:
+#            device: 0
+#            offset: 0x00008000
+#            size: 464kB
+#        FLASH_AREA_IMAGE_1:
+#            device: 1
+#            offset: 0x00040000
+#            size: 464kB
+#        FLASH_AREA_IMAGE_SCRATCH:
+#            device: 0
+#            offset: 0x0007f000
+#            size: 4kB
+#
+#        # User areas.
+#        FLASH_AREA_REBOOT_LOG:
+#            user_id: 0
+#            device: 0
+#            offset: 0x00006000
+#            size: 8kB
+#        FLASH_AREA_NFFS:
+#            user_id: 1
+#            device: 1
+#            offset: 0x000b7000
+#            size: 3364kB
+#        FLASH_AREA_BOOTLOADER_ASSETS:
+#            user_id: 2
+#            device: 1
+#            offset: 0x00000000
+#            size: 256kB
+
+bsp.flash_map:
+    areas:
+        # System areas.
+        FLASH_AREA_BOOTLOADER:
+            device: 0
+            offset: 0x00000000
+            size: 16kB
+        FLASH_AREA_IMAGE_0:
+            device: 0
+            offset: 0x00008000
+            size: 232kB
+        FLASH_AREA_IMAGE_1:
+            device: 0
+            offset: 0x00042000
+            size: 232kB
+        FLASH_AREA_IMAGE_SCRATCH:
+            device: 0
+            offset: 0x0007c000
+            size: 4kB
+
+        # User areas.
+        FLASH_AREA_REBOOT_LOG:
+            user_id: 0
+            device: 0
+            offset: 0x00004000
+            size: 16kB
+        FLASH_AREA_NFFS:
+            user_id: 1
+            device: 0
+            offset: 0x0007d000
+            size: 12kB
