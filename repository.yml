@@ -38,6 +38,7 @@ repo.versions:
     "1.7.0": "mynewt_1_7_0_tag"
     "1.8.0": "mynewt_1_8_0_tag"
     "1.9.0": "mynewt_1_9_0_tag"
+    "1.9.0-nf": "mynewt_1_9_0_nf_tag"
 
     "0-latest": "1.8.0"
     "1-latest": "1.8.0"
